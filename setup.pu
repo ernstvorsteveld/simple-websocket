@@ -4,15 +4,15 @@
 
 
 System_Boundary(ce, "Clients") {
-    Container(c1, "Client", "WebSocket", "WebSocket client1")
-    Container(c2, "Client", "WebSocket", "WebSocket client2")
+    Container(c1, "Client1", "Empty Linux Host", "WebSocket client")
+    Container(c2, "Client2", "Empty Linux Host", "WebSocket client")
 }
 
 System_Boundary(be, "Backend") {
     Container(nginx, "NGINX", "Reverse Proxy", "Load Balancer")
 
-    Container(s1, "Server", "WebSocket", "WebSocket server1")
-    Container(s2, "Server", "WebSocket", "WebSocket server2")
+    Container(s1, "Server1", "Go", "WebSocket server")
+    Container(s2, "Server2", "Go", "WebSocket server")
 }
 
 Rel(c1, nginx, "Request", "WebSocket")
