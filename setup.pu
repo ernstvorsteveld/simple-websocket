@@ -1,0 +1,29 @@
+@startuml websocket-loadbalancing
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+
+System_Boundary(ce, "Clients") {
+    Container(c1, "Client", "WebSocket", "WebSocket client1")
+    Container(c2, "Client", "WebSocket", "WebSocket client2")
+}
+
+System_Boundary(be, "Backend") {
+    Container(nginx, "NGINX", "Reverse Proxy", "Load Balancer")
+
+    Container(s1, "Server", "WebSocket", "WebSocket server1")
+    Container(s2, "Server", "WebSocket", "WebSocket server2")
+}
+
+Rel(c1, nginx, "Request", "WebSocket")
+Rel(c2, nginx, "Request", "WebSocket")
+Rel(nginx, c1, "Request", "WebSocket")
+Rel(nginx, c2, "Request", "WebSocket")
+
+Rel(nginx, s1, "Request", "WebSocket")
+Rel(nginx, s2, "Request", "WebSocket")
+Rel(s1, nginx, "Request", "WebSocket")
+Rel(s2, nginx, "Request", "WebSocket")
+
+
+SHOW_LEGEND()
